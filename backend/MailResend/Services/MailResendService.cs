@@ -6,7 +6,7 @@ namespace MailResend.Services;
 
 public interface IResendService
 {
-    public Task EmailSendAsync(EmailMessage message, CancellationToken cancellationToken = default);
+    public Task<ResendResponse<Guid>> EmailSendAsync(EmailMessage message, CancellationToken cancellationToken = default);
 }
 
 public class ResendService(
@@ -14,6 +14,6 @@ public class ResendService(
 {
     private readonly IResend _resend = ResendClient.Create(options.Value.ApiKey);
 
-    public Task EmailSendAsync(EmailMessage message, CancellationToken cancellationToken = default)
+    public Task<ResendResponse<Guid>> EmailSendAsync(EmailMessage message, CancellationToken cancellationToken = default)
         => _resend.EmailSendAsync(message, cancellationToken);
 }
