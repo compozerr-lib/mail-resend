@@ -1,13 +1,19 @@
 {
     "type": "module",
     "name": "mailresend",
-    "dependencies": { },
+    "dependencies": {},
     "start": "echo 'Hi Mom!'",
     "startupTimeoutMs": 1000,
     "readyMessage": "Hi Mom",
     "end": "",
     "port": "",
-    "frontend":{
+    "frontend": {
         "routesDir": "frontend/src/routes"
+    },
+    "backend": {
+        "defaultEnvProperties": {
+            "MAILRESEND__API_KEY": "<YOUR_MAILRESEND_API_KEY>",
+            "MAILRESEND__FROM_MAIL": "<YOUR_MAILRESEND_FROM_MAIL>"
+        }
     }
 }
