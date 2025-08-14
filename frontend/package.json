@@ -1,9 +1,9 @@
 {
-    "name": "@repo/template",
+    "name": "@repo/mailresend",
     "version": "0.0.0",
     "private": true,
     "exports": {
-        "./template-component": "./src/template-component.tsx"
+        "./mailresend-component": "./src/mailresend-component.tsx"
     },
     "devDependencies": {
         "@repo/config": "*"

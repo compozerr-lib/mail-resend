@@ -1,15 +1,15 @@
 import React from "react"
 import { createFileRoute } from '@tanstack/react-router'
-import TemplateComponent from '../../template-component'
+import MailResendComponent from '../../mailresend-component'
 
-export const Route = createFileRoute('/template/')({
+export const Route = createFileRoute('/mailresend/')({
   component: RouteComponent,
 })
 
 function RouteComponent() {
   return (
     <div>
-      <TemplateComponent name="World!" />
+      <MailResendComponent name="World!" />
     </div>
   )
 }
