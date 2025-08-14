@@ -1,7 +1,9 @@
 {
     "type": "module",
     "name": "mailresend",
-    "dependencies": {},
+    "dependencies": {
+        "compozerr-lib/mail": ""
+    },
     "frontend": {
         "routesDir": "frontend/src/routes"
     },
