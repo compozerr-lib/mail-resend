@@ -5,7 +5,7 @@ namespace MailResend.Endpoints.MailResend;
 
 public class MailResendGroup : CarterModule
 {
-    public MailResendGroup() : base("/mailresend")
+    public MailResendGroup() : base("mailresend")
     {
         WithTags(nameof(MailResend));
     }
