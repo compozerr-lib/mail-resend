@@ -4,9 +4,6 @@
     "dependencies": {
         "compozerr-lib/mail": ""
     },
-    "frontend": {
-        "routesDir": "frontend/src/routes"
-    },
     "backend": {
         "defaultEnvProperties": {
             "MAILRESEND__API_KEY": "<YOUR_MAILRESEND_API_KEY>"
