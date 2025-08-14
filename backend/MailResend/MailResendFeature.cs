@@ -11,7 +11,7 @@ public class MailResendFeature : IFeature
 
     void IFeature.ConfigureServices(IServiceCollection services)
     {
-        services.AddSingleton<IMailResendService, MailResendService>();
+        services.AddSingleton<ResendService, ResendService>();
 
         services.AddRequiredConfigurationOptions<MailResendOptions>("MailResend");
     }

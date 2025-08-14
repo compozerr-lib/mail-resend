@@ -1,32 +1,19 @@
+using MailResend.Options;
+using Microsoft.Extensions.Options;
+using Resend;
+
 namespace MailResend.Services;
 
-public interface IMailResendService
+public interface IResendService
 {
-    string GetObfuscatedName(ReadOnlySpan<char> nonObfuscatedName);
+    public Task EmailSendAsync(EmailMessage message, CancellationToken cancellationToken = default);
 }
 
-public class MailResendService : IMailResendService
+public class ResendService(
+    IOptions<MailResendOptions> options) : IResendService
 {
-    public string GetObfuscatedName(ReadOnlySpan<char> nonObfuscatedName)
-    {
-        Span<char> obfuscatedName = stackalloc char[nonObfuscatedName.Length];
-        for (var index = 0; index < nonObfuscatedName.Length; index++)
-        {
-            var character = nonObfuscatedName[index];
-            obfuscatedName[index] = GetRandomChar(character);
-        }
+    private readonly IResend _resend = ResendClient.Create(options.Value.ApiKey);
 
-        return obfuscatedName.ToString();
-    }
-
-    private static char GetRandomChar(char nonObfuscatedCharacter)
-    {
-        var isUpperCase = char.IsUpper(nonObfuscatedCharacter);
-        ReadOnlySpan<char> obfuscatedCharacters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'];
-
-        var randomIndex = new Random().Next(0, obfuscatedCharacters.Length);
-        var obfuscatedCharacter = obfuscatedCharacters[randomIndex];
-
-        return isUpperCase ? char.ToUpper(obfuscatedCharacter) : obfuscatedCharacter;
-    }
+    public Task EmailSendAsync(EmailMessage message, CancellationToken cancellationToken = default)
+        => _resend.EmailSendAsync(message, cancellationToken);
 }
