@@ -7,12 +7,20 @@ namespace MailResend.EventHandlers;
 
 public sealed class SendEmailEventHandler(IResendService resendService) : IEventHandler<SendEmailEvent>
 {
-    public Task Handle(SendEmailEvent notification, CancellationToken cancellationToken)
+    public async Task Handle(SendEmailEvent notification, CancellationToken cancellationToken)
     {
-        return resendService.EmailSendAsync(new Resend.EmailMessage
+        var result = await resendService.EmailSendAsync(new Resend.EmailMessage
         {
-            From = notification.Email.From.Address,
-            To = [.. notification.Email.To.Select(to => to.Address)],
+            From = new Resend.EmailAddress
+            {
+                DisplayName = notification.Email.From.DisplayName,
+                Email = notification.Email.From.Address
+            },
+            To = [.. notification.Email.To.Select(to => new Resend.EmailAddress
+            {
+                DisplayName = to.DisplayName,
+                Email = to.Address
+            })],
             Subject = notification.Email.Subject,
             HtmlBody = notification.Email.HtmlBody
         }, cancellationToken).LogExceptionAsError();
